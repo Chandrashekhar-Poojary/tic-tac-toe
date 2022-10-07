@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Square from './Square';
 
-const Board = () => {
+const Board = ({board, handleSquareClick}) => {
 
-  const [board, setBoard] = useState( Array(9).fill(null) );
-  const [isNext, setIsNext] = useState(false);
- //console.log(board);
+//   const [board, setBoard] = useState( Array(9).fill(null) );
+//   const [isNext, setIsNext] = useState(false);
+ 
+//   //console.log('board rerendered');
 
- const handleSquareClick = (position) =>{
+//  const handleSquareClick = (position) =>{
 
-    if(board[position]){ // cannot rewrite on board
-      return;
-    }
-    setBoard( (prev) =>{
-      return prev.map((square, pos) =>{
-        if(pos === position){
-          return isNext ? 'X': 'O';
-        }
-        return square;
-      })
-    })
+//     if(board[position]){ // cannot rewrite on board
+//       return;
+//     }
+//     setBoard( (prev) =>{
+//       return prev.map((square, pos) =>{
+//         if(pos === position){
+//           return isNext ? 'X': 'O';
+//         }
+//         return square;
+//       })
+//     })
 
-    setIsNext((prev)=> !prev);
- };
+//     setIsNext((prev)=> !prev);
+//  };
 
  // custom function will accept one fun and retur square component
  const renderSquare = (position) =>{
