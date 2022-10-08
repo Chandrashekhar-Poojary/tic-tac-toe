@@ -5,38 +5,49 @@ import "./styles/root.scss";
 
 const App = () =>{
 
-  const [board, setBoard] = useState( Array(9).fill(null) );
-  const [isNext, setIsNext] = useState(false);
+  const [history, setHistory] = useState([ 
+    {board: Array(9).fill(null), isXNext: true} 
+  ]);
+  const [ currentMove, setCurrentMove ] = useState(0); // by default set to 0
+
+  const current = history[currentMove];
+
+  //console.log("history", history);
+  //const [isXNext, setIsXNext] = useState(false);
  
-  const winner = calculateWinner(board);
+  const winner = calculateWinner(current.board);
   //console.log(winner);
 
   const message = winner 
   ? `Winner is ${winner}`
-  : `Next player is ${isNext ? 'X':'O'}`;
+  : `Next player is ${current.isXNext ? 'X':'O'}`;
 
  const handleSquareClick = (position) =>{
 
-    if(board[position] || winner){ // cannot rewrite on board
+    if(current.board[position] || winner){ // cannot rewrite on board
       return;
     }
-    setBoard( (prev) =>{
-      return prev.map((square, pos) =>{
+
+    setHistory( (prev) =>{
+      const last = prev[ prev.length - 1 ];
+      const newBoard = last.board.map((square, pos) =>{
         if(pos === position){
-          return isNext ? 'X': 'O';
+          return last.isXNext ? 'X': 'O';
         }
         return square;
-      })
-    })
+      });
+      return prev.concat({board: newBoard, isXNext: !last.isXNext})
+    });
+    // setIsXNext((prev)=> !prev);
 
-    setIsNext((prev)=> !prev);
+    setCurrentMove(prev => prev + 1);
  };
 
   return (
     <div className="app">
       <h1>TIC TAC TOE</h1>
       <h2>{message}</h2>
-      <Board board={board} handleSquareClick={handleSquareClick}/>
+      <Board board={current.board} handleSquareClick={handleSquareClick}/>
     </div>
   );
 }
