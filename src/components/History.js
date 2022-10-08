@@ -1,5 +1,4 @@
-import React from 'react'
-import Square from './Square';
+import React from 'react';
 
 const History = ({history, moveTo, currentMove}) => {
   return (
@@ -24,6 +23,6 @@ const History = ({history, moveTo, currentMove}) => {
     </ul>
     </div>
   );
-}
+};
 
 export default History;
