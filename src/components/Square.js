@@ -6,11 +6,9 @@ const Square = ({value, onClick, isWinningSquare}) =>{ // after object destructu
     return (
         <button 
             type="button" 
-            className='square'
             onClick={onClick} // onClick is a custom prop
-            style={{
-                fontWeight: isWinningSquare? 'bold': 'normal'
-            }}
+            className={`square ${isWinningSquare ? 'winning':''} 
+            ${value === 'X'? 'text-green':'text-orange'}`}
         >
             { value }
         </button> // instead of props.value just define value
